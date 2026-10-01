@@ -1,6 +1,9 @@
-package com.example.uq_lab2_1;
+package com.example.uq_lab2_2;
+
+import static java.net.Proxy.Type.HTTP;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.net.URL;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +33,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleSubmit(View view) {
-        EditText text = findViewById(R.id.editTextText);
-        Intent sendIntent = new Intent(this, NewActivity.class);
-        sendIntent.putExtra("name", text.getText());
-        startActivity(sendIntent);
+        EditText email = findViewById(R.id.editTextTextEmailAddress);
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, email.getText());
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Validation email");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "email");
+        startActivity(Intent.createChooser(emailIntent, "Send Email"));
+
     }
 }
